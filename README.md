@@ -43,7 +43,7 @@ A robust authentication system built with Node.js, Express, and MongoDB.
 2. Install dependencies:
 
    ```bash
-   npm install / npm run dev
+   npm install
    # or
    yarn install
    ```
@@ -61,7 +61,7 @@ A robust authentication system built with Node.js, Express, and MongoDB.
 
 4. Start the server:
    ```bash
-   npm start
+   npm start / npm run dev
    # or
    yarn start
    ```
