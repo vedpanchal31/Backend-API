@@ -15,15 +15,24 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.json({
     message: "Welcome to the Authentication API",
-    documentation: "/api-docs",
+    documentation: "/docs",
   });
 });
 
 // Swagger documentation
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/docs", swaggerUi.serve);
+app.get(
+  "/docs",
+  swaggerUi.setup(swaggerDocument, {
+    explorer: true,
+    customCss: ".swagger-ui .topbar { display: none }",
+    customSiteTitle: "Authentication API Documentation",
+  })
+);
 
 // Routes
-app.use("/api/auth", require("./routes/auth.routes"));
+app.use("/auth", require("./routes/auth.routes"));
+app.use("/users", require("./routes/user.routes"));
 
 // Error handling middleware
 app.use((req, res, next) => {
@@ -31,14 +40,17 @@ app.use((req, res, next) => {
     message: "Route not found",
     availableRoutes: {
       root: "/",
-      documentation: "/api-docs",
-      register: "/api/auth/register",
-      verifyEmail: "/api/auth/verify-email",
-      resendEmail: "/api/auth/resend-email",
-      signIn: "/api/auth/sign-in",
-      forgotPassword: "/api/auth/forgot-password",
-      verifyOTP: "/api/auth/verify-otp",
-      resetPassword: "/api/auth/reset-password/:token",
+      documentation: "/docs",
+      register: "/auth/register",
+      verifyEmail: "/auth/verify-email",
+      resendEmail: "/auth/resend-email",
+      signIn: "/auth/sign-in",
+      forgotPassword: "/auth/forgot-password",
+      verifyOTP: "/auth/verify-otp",
+      resetPassword: "/auth/reset-password/:token",
+      getProfile: "/users/profile",
+      updateProfile: "/users/profile",
+      deleteAccount: "/users/profile",
     },
   });
 });
@@ -53,5 +65,5 @@ mongoose
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-  console.log(`API Documentation: http://localhost:${PORT}/api-docs`);
+  console.log(`API Documentation: http://localhost:${PORT}/docs`);
 });
