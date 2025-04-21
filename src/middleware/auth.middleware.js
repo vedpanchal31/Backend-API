@@ -12,6 +12,7 @@ const authMiddleware = async (req, res, next) => {
     }
 
     const token = authHeader.split(" ")[1];
+    console.log("Token received:", token);
 
     // Check if token is blacklisted
     const blacklistedToken = await Token.findOne({ token });
@@ -24,9 +25,11 @@ const authMiddleware = async (req, res, next) => {
     // Verify token
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      console.log("Decoded token:", decoded);
       req.user = decoded;
       next();
     } catch (error) {
+      console.error("Token verification error:", error);
       return res.status(401).json({
         message: "Unauthorized - Invalid token",
       });

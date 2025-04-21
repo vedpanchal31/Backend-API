@@ -13,15 +13,15 @@ const {
 } = require("../controllers/auth.controller");
 
 // Public routes
-router.post("/auth/register", register);
-router.post("/auth/verify-email", verifyEmail);
-router.post("/auth/sign-in", signIn);
-router.post("/auth/forgot-password", forgotPassword);
-router.post("/auth/verify-otp", verifyOTP);
-router.post("/auth/reset-password/:token", resetPassword);
+router.post("/register", register);
+router.post("/verify-email", verifyEmail);
+router.post("/sign-in", signIn);
+router.post("/forgot-password", forgotPassword);
+router.post("/verify-otp", verifyOTP);
+router.post("/reset-password/:token", resetPassword);
 
 // Protected routes
-router.post("/auth/resend-email", authMiddleware, resendEmail);
-router.post("/auth/logout", authMiddleware, logout);
+router.post("/resend-email", authMiddleware, resendEmail);
+router.post("/logout", authMiddleware, logout);
 
 module.exports = router;
